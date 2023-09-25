@@ -9,7 +9,7 @@ conda activate py38
 
 2 Install pytorch >= 1.6.0, torchvision >= 0.7.0.
 ~~~
-conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
+conda install pytorch==1.9.1 torchvision==0.10.1 cudatoolkit=10.2 -c pytorch
 ~~~
 
 

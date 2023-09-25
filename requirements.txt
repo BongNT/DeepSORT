@@ -3,7 +3,7 @@ Cython
 matplotlib>=3.2.2
 numpy>=1.18.5
 opencv-python>=4.1.2
-pillow
+pillow==9.0.0
 easydict
 # pycocotools>=2.0
 PyYAML>=5.3
@@ -12,3 +12,4 @@ tensorboard>=2.2
 #torch>=1.6.0
 #torchvision>=0.7.0
 tqdm>=4.41.0
+# conda install pytorch==1.10.1 torchvision==0.11.2 cudatoolkit=10.1 -c pytorch
