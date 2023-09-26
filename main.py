@@ -252,6 +252,10 @@ if __name__ == '__main__':
     # deepsort parameters
     parser.add_argument("--config_deepsort", type=str, default="./configs/deep_sort.yaml")
 
+    # extract feature model parameters
+    # parser.add_argument('--name_extractor', type=str, default='origin_net',
+    #                      help=)
+
     args = parser.parse_args()
     args.img_size = check_img_size(args.img_size)
     print(args)

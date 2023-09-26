@@ -5,7 +5,7 @@ import torchvision
 import argparse
 import os
 
-from model import Net
+from deep_sort.deep.models.Net import Net
 
 parser = argparse.ArgumentParser(description="Train on market1501")
 parser.add_argument("--data-dir",default='data',type=str)

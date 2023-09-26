@@ -78,8 +78,9 @@ class Tracker:
         for track_idx in unmatched_tracks:
             self.tracks[track_idx].mark_missed()
         for detection_idx in unmatched_detections:
-            #
+            # if one detection found, it will be init new Tentative track
             self._initiate_track(detections[detection_idx])
+        # delete track that is in delete state
         self.tracks = [t for t in self.tracks if not t.is_deleted()]
 
         # Update distance metric.

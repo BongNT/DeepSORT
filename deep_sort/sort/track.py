@@ -69,9 +69,9 @@ class Track:
         self.mean = mean
         self.covariance = covariance
         self.track_id = track_id
-        self.hits = 1
-        self.age = 1
-        self.time_since_update = 0
+        self.hits = 1 # using for change state from tentative to confirm or delete
+        self.age = 1 # count time this track "live" (state != delete)
+        self.time_since_update = 0 # count time from last matching to now
 
         self.state = TrackState.Tentative
         self.features = []
@@ -127,7 +127,7 @@ class Track:
     def update(self, kf, detection):
         """Perform Kalman filter measurement update step and update the feature
         cache.
-
+        this only called when track match with detection
         Parameters
         ----------
         kf : kalman_filter.KalmanFilter
