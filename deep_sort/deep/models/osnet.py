@@ -532,7 +532,7 @@ def osnet_x1_0(num_classes=1000, pretrained=True, loss='softmax', **kwargs):
     )
     if pretrained:
         # init_pretrained_weights(model, key='osnet_x1_0')
-        load_pretrained_weights(model, "deep_sort\deep\checkpoint\osnet_x1_0_market_256x128.pth")
+        load_pretrained_weights(model, "deep_sort/deep/checkpoint/osnet_x1_0_market_256x128.pth")
     return model
 
 
