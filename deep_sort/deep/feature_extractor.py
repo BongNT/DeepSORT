@@ -67,7 +67,7 @@ class Extractor(object):
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
             features = self.model(im_batch)
-            print(features.cpu().numpy().shape)
+            # print(features.cpu().numpy().shape)
         return features.cpu().numpy()
 
 

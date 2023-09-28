@@ -405,9 +405,8 @@ class ImageTracker(object):
 
 
     def __read_img(self, path):
-        
         img = cv2.imread(path)
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        # img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         return img
 
     def __gather_sequence_info(self, sequence_dir):
