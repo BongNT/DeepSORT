@@ -289,10 +289,10 @@ class ImageTracker(object):
         idx_frame = 0
         last_out = None
         img_paths = self.info["image_filenames"]
-        for img_path in img_paths.values():
+        for img_path in sorted(img_paths.values()):
             # Inference *********************************************************************
             t0 = time.time()
-            print((img_path))
+            # print((img_path))
             img0 = self.__read_img(img_path)
 
             if idx_frame % self.args.frame_interval == 0:
@@ -330,13 +330,13 @@ class ImageTracker(object):
                 self.writer.write(img0)
 
             if self.args.save_result:
-                with open(self.args.save_txt + self.info["sequence_name"] + '.txt', 'a+') as f:
+                with open(self.args.save_result + self.info["sequence_name"] + '.txt', 'a+') as f:
                     for i in range(len(outputs)):
                         x1, y1, x2, y2, idx = outputs[i]
                         w = x2 - x1
                         h = y2 - y1
                         # frame_id, tracking_id, left, top, w, h , conf, x, y, z
-                        s = f"{idx_frame+1},{idx},{x1},{y1},{w},{h},1,-1,-1,-1\n"
+                        s = f"{idx_frame+1},{idx},{x1},{y1},{w},{h},-1,-1,-1,-1\n"
                         f.write(s)
 
 
@@ -501,7 +501,7 @@ if __name__ == '__main__':
     # MOT data
     parser.add_argument('--eval', action='store_true', default=False)
     parser.add_argument('--seq_folder', default="/MOT16/test/MOT16-01/", help='folder contains all frame images, seq info, ...')
-    parser.add_argument('--save_result', default= "output/", help='Folder contains tracking results in .txt file as a MOT16 annotator')
+    parser.add_argument('--save_result', default= "output/predict/", help='Folder contains tracking results in .txt file as a MOT16 annotator')
     # camera only
     parser.add_argument("--display", action="store_true")
     parser.add_argument("--display_width", type=int, default=800)
