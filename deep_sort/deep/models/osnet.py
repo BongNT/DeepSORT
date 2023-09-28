@@ -597,5 +597,5 @@ def osnet_ibn_x1_0(
     )
     if pretrained:
         # init_pretrained_weights(model, key='osnet_ibn_x1_0')
-        load_pretrained_weights(model, r"deep_sort\deep\checkpoint\osnet_ibn_x1_0_duke_256x128_amsgrad_ep150_stp60_lr0.0015_b64_fb10_softmax_labelsmooth_flip.pth")
+        load_pretrained_weights(model, r"deep_sort/deep/checkpoint/osnet_ibn_ms_d_c.pth.tar")
     return model

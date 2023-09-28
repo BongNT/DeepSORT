@@ -12,4 +12,6 @@ tensorboard>=2.2
 #torch>=1.6.0
 #torchvision>=0.7.0
 tqdm>=4.41.0
+
+motmetrics
 # conda install pytorch==1.10.1 torchvision==0.11.2 cudatoolkit=10.1 -c pytorch

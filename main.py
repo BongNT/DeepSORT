@@ -493,7 +493,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # input and output
     parser.add_argument('--input_video', type=str, default='input_480.mp4', help='source')  # file/folder, 0 for webcam
-    parser.add_argument('--save_path', type=str, default='output/', help='output folder')  # output video folder
+    parser.add_argument('--save_path', type=str, default='output/predict/', help='output folder')  # output video folder
     parser.add_argument("--frame_interval", type=int, default=2)
     parser.add_argument('--fourcc', type=str, default='mp4v', help='output video codec (verify ffmpeg support)')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
