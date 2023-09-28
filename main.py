@@ -243,7 +243,9 @@ class ImageTracker(object):
         # ***************************** initialize DeepSORT **********************************
         cfg = get_config()
         cfg.merge_from_file(args.config_deepsort)
-
+        print("#######################################\n")
+        print(f"Model extractor using: {cfg.DEEPSORT.name_extractor}\n")
+        print("#######################################")
         use_cuda = self.device.type != 'cpu' and torch.cuda.is_available()
         self.deepsort = build_tracker(cfg, use_cuda=use_cuda)
 
@@ -272,8 +274,8 @@ class ImageTracker(object):
             fourcc = cv2.VideoWriter_fourcc(*self.args.fourcc)
             self.writer = cv2.VideoWriter(self.save_video_path, fourcc,self.info["frameRate"], (self.im_width, self.im_height))
             print('Done. Create output file ', self.save_video_path)
-        if self.args.save_result:
-            os.makedirs(self.args.save_result, exist_ok=True)
+        if self.args.save_txt:
+            os.makedirs(self.args.save_txt, exist_ok=True)
 
         return self
 
@@ -329,8 +331,8 @@ class ImageTracker(object):
             if self.args.save_path:
                 self.writer.write(img0)
 
-            if self.args.save_result:
-                with open(self.args.save_result + self.info["sequence_name"] + '.txt', 'a+') as f:
+            if self.args.save_txt:
+                with open(self.args.save_txt + self.info["sequence_name"] + '.txt', 'w+') as f:
                     for i in range(len(outputs)):
                         x1, y1, x2, y2, idx = outputs[i]
                         w = x2 - x1
@@ -491,16 +493,15 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     # input and output
     parser.add_argument('--input_video', type=str, default='input_480.mp4', help='source')  # file/folder, 0 for webcam
-    parser.add_argument('--save_path', type=str, default='output/', help='output folder')  # output folder
+    parser.add_argument('--save_path', type=str, default='output/', help='output folder')  # output video folder
     parser.add_argument("--frame_interval", type=int, default=2)
     parser.add_argument('--fourcc', type=str, default='mp4v', help='output video codec (verify ffmpeg support)')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
-    parser.add_argument('--save_txt', default='output/predict/', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+    parser.add_argument('--save_txt', default='output/predict/', help='Folder contains tracking results in .txt file as a MOT16 annotator')
 
     # MOT data
     parser.add_argument('--eval', action='store_true', default=False)
     parser.add_argument('--seq_folder', default="/MOT16/test/MOT16-01/", help='folder contains all frame images, seq info, ...')
-    parser.add_argument('--save_result', default= "output/predict/", help='Folder contains tracking results in .txt file as a MOT16 annotator')
     # camera only
     parser.add_argument("--display", action="store_true")
     parser.add_argument("--display_width", type=int, default=800)
@@ -520,8 +521,10 @@ if __name__ == '__main__':
     parser.add_argument("--config_deepsort", type=str, default="./configs/deep_sort.yaml")
 
     # extract feature model parameters
-    # parser.add_argument('--name_extractor', type=str, default='origin_net',
-    #                      help=)
+    # parser.add_argument('--name_extractor', type=str, default='osnet_x1_0',
+    #                      help='["basic_net", "osnet_x1_0", "osnet_x0_75", "osnet_x0_5", "osnet_x0_25"]')
+    # parser.add_argument('--pretrain_path', type=str, default='basic_net',
+    #                      help='["basic_net", "osnet_x1_0", "osnet_x0_75", "osnet_x0_5", "osnet_x0_25"]')
 
     args = parser.parse_args()
     args.img_size = check_img_size(args.img_size)

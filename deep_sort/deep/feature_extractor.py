@@ -13,7 +13,8 @@ class Extractor(object):
     "osnet_x1_0": osnet_x1_0,
     "osnet_x0_75": osnet_x0_75,
     "osnet_x0_5": osnet_x0_5,
-    "osnet_x0_25": osnet_x0_25
+    "osnet_x0_25": osnet_x0_25,
+    "osnet_ibn_x1_0": osnet_ibn_x1_0
     }
     def __init__(self, name_extractor, pretrained=True, use_cuda=True):
         self.model = self.__init_model(name_extractor, pretrained=pretrained)

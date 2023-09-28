@@ -6,7 +6,7 @@ def prepare_gt(seq_folder):
     valid_label = [1,7]
     gt_file = Path(seq_folder)/"gt/gt.txt"
     ngt_file = Path(seq_folder)/"gt/ngt.txt"
-    ngt = ngt_file.open("a+")
+    ngt = ngt_file.open("w+")
     with gt_file.open("r") as gt:
         lines = gt.readlines()
         for line in lines:
