@@ -8,6 +8,6 @@ DEEPSORT:
   N_INIT: 3
   NN_BUDGET: 100
   # extractor parameters
-  name_extractor: "osnet_ibn_x1_0"
+  name_extractor: "osnet_x0_5"
   #["basic_net", "osnet_x1_0", "osnet_ibn_x1_0", "osnet_x0_75", "osnet_x0_5", "osnet_x0_25"]
   

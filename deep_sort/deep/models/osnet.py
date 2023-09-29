@@ -547,7 +547,8 @@ def osnet_x0_75(num_classes=1000, pretrained=True, loss='softmax', **kwargs):
         **kwargs
     )
     if pretrained:
-        init_pretrained_weights(model, key='osnet_x0_75')
+        # init_pretrained_weights(model, key='osnet_x0_75')
+        load_pretrained_weights(model, "deep_sort/deep/checkpoint/osnet_x0_75_msmt17.pth")
     return model
 
 
@@ -562,7 +563,8 @@ def osnet_x0_5(num_classes=1000, pretrained=True, loss='softmax', **kwargs):
         **kwargs
     )
     if pretrained:
-        init_pretrained_weights(model, key='osnet_x0_5')
+        # init_pretrained_weights(model, key='osnet_x0_5')
+        load_pretrained_weights(model, "deep_sort/deep/checkpoint/osnet_x0_5_msmt17.pth")
     return model
 
 
@@ -577,7 +579,8 @@ def osnet_x0_25(num_classes=1000, pretrained=True, loss='softmax', **kwargs):
         **kwargs
     )
     if pretrained:
-        init_pretrained_weights(model, key='osnet_x0_25')
+        # init_pretrained_weights(model, key='osnet_x0_25')
+        load_pretrained_weights(model, "deep_sort/deep/checkpoint/osnet_x0_25_msmt17.pth")
     return model
 
 
