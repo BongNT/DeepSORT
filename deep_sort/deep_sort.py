@@ -127,5 +127,6 @@ class DeepSort(object):
         else:
             features = np.array([])
         return features
-
+    def get_extract_time(self):
+        return np.mean(self.extractor.time_extract)
 

@@ -3,6 +3,7 @@ import torchvision.transforms as transforms
 import numpy as np
 import cv2
 import logging
+from yolov5.utils.torch_utils import time_synchronized
 
 from .models.basicnet import basic_net
 from .models.osnet import *
@@ -17,6 +18,7 @@ class Extractor(object):
     "osnet_ibn_x1_0": osnet_ibn_x1_0
     }
     def __init__(self, name_extractor, pretrained=True, use_cuda=True):
+        self.time_extract = []
         self.model = self.__init_model(name_extractor, pretrained=pretrained)
         self.device = "cuda" if torch.cuda.is_available() and use_cuda else "cpu"
         self.model.eval()
@@ -64,11 +66,14 @@ class Extractor(object):
 
 
     def __call__(self, im_crops):
+        st = time_synchronized()
         im_batch = self._preprocess(im_crops)
         with torch.no_grad():
             im_batch = im_batch.to(self.device)
             features = self.model(im_batch)
             # print(features.cpu().numpy().shape)
+        et = time_synchronized()
+        self.time_extract.append((et-st)/len(im_crops))
         return features.cpu().numpy()
 
 

@@ -17,6 +17,7 @@ import torch
 import torch.backends.cudnn as cudnn
 
 import sys
+from tqdm import tqdm
 
 currentUrl = os.path.dirname(__file__)
 sys.path.append(os.path.abspath(os.path.join(currentUrl, 'yolov5')))
@@ -244,10 +245,12 @@ class ImageTracker(object):
         cfg = get_config()
         cfg.merge_from_file(args.config_deepsort)
         print("#######################################\n")
-        print(f"Model extractor using: {cfg.DEEPSORT.name_extractor}\n")
-        print("#######################################")
+        print(f"Model extractor using: {cfg.DEEPSORT.name_extractor}")
         use_cuda = self.device.type != 'cpu' and torch.cuda.is_available()
         self.deepsort = build_tracker(cfg, use_cuda=use_cuda)
+        print()
+        print("#######################################")
+        
 
         # ***************************** initialize YOLO-V5 **********************************
         self.detector = torch.load(args.weights, map_location=self.device)['model'].float()  # load to FP32
@@ -294,7 +297,7 @@ class ImageTracker(object):
         # delete old data or create file
         with open(self.args.save_txt + self.info["sequence_name"] + '.txt', 'w+') as f:
             pass
-        for img_path in sorted(img_paths.values()):
+        for img_path in tqdm(sorted(img_paths.values())):
             # Inference *********************************************************************
             t0 = time.time()
             # print((img_path))
@@ -305,7 +308,7 @@ class ImageTracker(object):
                 last_out = outputs
                 yolo_time.append(yt)
                 sort_time.append(st)
-                print('Frame %d Done. YOLO-time:(%.3fs) SORT-time:(%.3fs)' % (idx_frame, yt, st))
+                # print('Frame %d Done. YOLO-time:(%.3fs) SORT-time:(%.3fs)' % (idx_frame, yt, st))
             else:
                 outputs = last_out  # directly use prediction in last frames
             t1 = time.time()
@@ -350,6 +353,7 @@ class ImageTracker(object):
 
         print('Avg YOLO time (%.3fs), Sort time (%.3fs) per frame' % (sum(yolo_time) / len(yolo_time),
                                                             sum(sort_time)/len(sort_time)))
+        print("Avg Extract time: (%.6fs)" % self.deepsort.get_extract_time())
         t_end = time.time()
         print('Total time (%.3fs), Total Frame: %d' % (t_end - t_start, idx_frame))
 
