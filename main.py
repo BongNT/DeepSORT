@@ -291,6 +291,9 @@ class ImageTracker(object):
         idx_frame = 0
         last_out = None
         img_paths = self.info["image_filenames"]
+        # delete old data or create file
+        with open(self.args.save_txt + self.info["sequence_name"] + '.txt', 'w+') as f:
+            pass
         for img_path in sorted(img_paths.values()):
             # Inference *********************************************************************
             t0 = time.time()
@@ -332,7 +335,7 @@ class ImageTracker(object):
                 self.writer.write(img0)
 
             if self.args.save_txt:
-                with open(self.args.save_txt + self.info["sequence_name"] + '.txt', 'w+') as f:
+                with open(self.args.save_txt + self.info["sequence_name"] + '.txt', 'a+') as f:
                     for i in range(len(outputs)):
                         x1, y1, x2, y2, idx = outputs[i]
                         w = x2 - x1
